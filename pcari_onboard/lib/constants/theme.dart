@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class MyTheme {
 
-  static const color1 = Colors.redAccent;
-  static const color2 = Colors.red;
+  static const primaryColor = Color.fromRGBO(50, 185, 164, 1);
+  static const primaryColorLight = Color.fromRGBO(235, 248, 246, 1);
+  static const primaryColorDark = Color.fromARGB(255, 39, 144, 128);
 
   static final ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
@@ -53,17 +54,17 @@ class MyTheme {
     //   hintStyle: TextStyle(color: Colors.grey.shade600),
     //   suffixIconColor: Colors.white.withOpacity(0.9),
     // ),
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.transparent,
-      filled: true,
-      floatingLabelStyle: TextStyle(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.bold),
-      focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-      errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade600, width: 2)),
-      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color1, width: 2)),
-      prefixIconColor: Colors.white.withOpacity(0.9),
-      suffixIconColor: Colors.white.withOpacity(0.8)
-    ),
+    // inputDecorationTheme: InputDecorationTheme(
+    //   fillColor: Colors.transparent,
+    //   filled: true,
+    //   floatingLabelStyle: TextStyle(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.bold),
+    //   focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
+    //   errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
+    //   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade600, width: 2)),
+    //   focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color1, width: 2)),
+    //   prefixIconColor: Colors.white.withOpacity(0.9),
+    //   suffixIconColor: Colors.white.withOpacity(0.8)
+    // ),
     
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: Colors.white.withOpacity(0.9),
@@ -86,11 +87,13 @@ class MyTheme {
   static final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
 
-    scaffoldBackgroundColor: Colors.grey.shade100,
-    primaryColor: color1,
+    scaffoldBackgroundColor: Colors.white,
+    primaryColor: primaryColor,
+    primaryColorLight: primaryColorLight,
+    primaryColorDark: primaryColorDark,
     cardColor: Colors.white,
 
-    colorScheme: ColorScheme.light().copyWith(primary: color2),
+    colorScheme: ColorScheme.light().copyWith(primary: primaryColor),
   
     iconTheme: IconThemeData(color: Colors.black.withOpacity(0.9)),
     listTileTheme: ListTileThemeData(iconColor: Colors.black.withOpacity(0.8)),
@@ -111,24 +114,24 @@ class MyTheme {
       //displayColor: Colors.blue, 
     ),
 
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.transparent,
-      filled: true,
-      floatingLabelStyle: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-      focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-      errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade200, width: 2)),
-      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color2, width: 2)),
-      prefixIconColor: Colors.black.withOpacity(0.9),
-      suffixIconColor: Colors.black.withOpacity(0.8)
-    ),
+    // inputDecorationTheme: InputDecorationTheme(
+    //   fillColor: Colors.transparent,
+    //   filled: true,
+    //   floatingLabelStyle: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
+    //   focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
+    //   errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
+    //   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade200, width: 2)),
+    //   focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color2, width: 2)),
+    //   prefixIconColor: Colors.black.withOpacity(0.9),
+    //   suffixIconColor: Colors.black.withOpacity(0.8)
+    // ),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Colors.black87,
       selectionColor: Colors.red
     ),
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: color2,
+      backgroundColor: primaryColor,
       foregroundColor: Colors.black.withOpacity(0.9)
     ),
 

@@ -2,14 +2,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:pcari_onboard/screen/home.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:pcari_onboard/screen/home/home.dart';
+import 'package:pcari_onboard/services/getx/controller.dart';
 
 import 'constants/theme.dart';
 import 'constants/theme_mode.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
   if (!kIsWeb) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       // STATUS BAR
@@ -28,8 +29,8 @@ void main() {
     ));
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top]);
   }
-
-  
+  await Hive.initFlutter();
+  await MyController().initHiveAndGetX();
   runApp(const MyApp());
 }
 
@@ -43,7 +44,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-
     return GetMaterialApp(
       scrollBehavior: const ScrollBehavior().copyWith(physics: const BouncingScrollPhysics(), overscroll: false),
       initialRoute: '/',

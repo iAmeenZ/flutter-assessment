@@ -18,15 +18,18 @@ class MyUserHiveAdapter extends TypeAdapter<MyUserHive> {
     };
     return MyUserHive(
       themeModeString: fields[0] as String,
+      contacts: (fields[1] as List).cast<Contact>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, MyUserHive obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.themeModeString);
+      ..write(obj.themeModeString)
+      ..writeByte(1)
+      ..write(obj.contacts);
   }
 
   @override
