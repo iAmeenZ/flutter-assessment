@@ -7,7 +7,7 @@ import 'package:pcari_onboard/model/contact.dart';
 import 'package:pcari_onboard/screen/favorite/add_favorite.dart';
 import 'package:pcari_onboard/screen/home/contact_list.dart';
 import 'package:pcari_onboard/screen/home/dialog_theme.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
 import 'package:pcari_onboard/widget/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -41,19 +41,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
-        title: Text('My Contacts', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        title: Text('My Contacts'),
+        leading: IconButton(
+          onPressed: () {
+            Get.dialog(DialogThemeSetting());
+          },
+          tooltip: 'Theme Mode',
+          icon: Icon(Get.isDarkMode ? Icons.dark_mode : Icons.light_mode)
+        ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Get.dialog(DialogThemeSetting());
-            },
-            tooltip: 'Theme Mode',
-            icon: Icon(Icons.dark_mode)
-          ),
           RotationTransition(
             turns: Tween(begin: 0.0, end: 1.0).animate(_controller),
             child: IconButton(
@@ -71,14 +72,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         onPressed: () {
           Get.to(AddFavorite());
         },
-        child: Icon(Icons.add, color: Colors.white),
+        child: Icon(Icons.add),
       ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              color: Colors.grey.shade300,
+              color: Get.theme.cardColor,
               height: 80,
               child: Center(
                 child: Container(
@@ -86,20 +87,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                   margin: EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      fillColor: Colors.white,
+                      fillColor: Get.theme.scaffoldBackgroundColor,
                       filled: true,
                       contentPadding: EdgeInsets.fromLTRB(25, 10, 20, 10),
                       hintText: 'Search Contact',
-                      labelStyle: TextStyle(color: Color.fromARGB(255, 90, 90, 90)),
+                      hintStyle: TextStyle(fontSize: 15, color: Get.isDarkMode ? Colors.white : Colors.grey),
                       suffixIcon: Container(
                         margin: EdgeInsets.only(right: 10),
-                        child: IconButton(
-                          iconSize: 20,
-                          onPressed: () {
-                            debugPrint('Gegenpressing!');
-                          },
-                          icon: Icon(CustomIcons.search_1, color: Colors.grey)
-                        ),
+                        child: Icon(CustomIcons.search_1, color: Colors.grey.shade400, size: 18)
                       ),
                       focusedBorder:  OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
@@ -109,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                           style: BorderStyle.solid,
                         )
                       ),
-                      border: OutlineInputBorder(
+                      enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(30),
                         borderSide: const BorderSide(
                           width: 0,
@@ -118,7 +113,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       )
                     ),
                     onChanged: (val) {
-                      search = val;
+                      if (val.isEmpty) {
+                        search = null;
+                      } else {
+                        search = val;
+                      }
+                      setState(() {});
                     },
                   ),
                 ),
@@ -133,25 +133,25 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                     padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                     borderRadius: 5,
                     shadowRadius: 1,
-                    color: isAll ? Get.theme.primaryColor : Colors.white,
+                    color: isAll ? Get.theme.primaryColor : Get.theme.scaffoldBackgroundColor,
                     onTap: () {
                       setState(() {
                         isAll = true;
                       });
                     },
-                    child: Text('All', style: GoogleFonts.poppins(color: isAll ? Colors.white : null))
+                    child: Text('All', style: GoogleFonts.poppins(color: isAll ? Colors.white : Colors.grey.shade600))
                   ),
                   CustomButton(
                     padding: EdgeInsets.fromLTRB(15, 5, 15, 5),
                     shadowRadius: 1,
                     borderRadius: 5,
-                    color: isAll ? Colors.white : Get.theme.primaryColor,
+                    color: isAll ? Get.theme.scaffoldBackgroundColor : Get.theme.primaryColor,
                     onTap: () {
                       setState(() {
                         isAll = false;
                       });
                     },
-                    child: Text('Favorite', style: GoogleFonts.poppins(color: isAll ? null : Colors.white))
+                    child: Text('Favorite', style: GoogleFonts.poppins(color: isAll ? Colors.grey.shade600 : Colors.white))
                   ),
                 ],
               ),
@@ -164,6 +164,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 List<Contact> contactList = myController.myUserHive.value.contacts.toList();
                 if (!isAll) {
                   contactList.removeWhere((e) => !e.isFavorite);
+                }
+                if (search != null) {
+                  List<Contact> newList = [];
+                  for (var e in contactList) {
+                    String combined = '${e.firstName.toLowerCase()} ${e.lastName.toLowerCase()} ${e.email.toLowerCase()}';
+                    if (combined.contains(search!.toLowerCase())) {
+                      newList.add(e);
+                    }
+                  }
+                  contactList = newList.toList();
                 }
                 return ContactList(
                   isAll: isAll,

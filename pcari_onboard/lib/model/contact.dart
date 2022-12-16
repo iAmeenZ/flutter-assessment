@@ -18,6 +18,8 @@ class Contact {
   String avatar;
   @HiveField(5)
   bool isFavorite;
+  @HiveField(6)
+  String? path;
   
   Contact({
     required this.id,
@@ -26,6 +28,7 @@ class Contact {
     required this.lastName,
     required this.avatar,
     required this.isFavorite,
+    this.path,
   });
 
   Map<String, dynamic> toMap() {
@@ -37,6 +40,9 @@ class Contact {
     result.addAll({'last_name': lastName});
     result.addAll({'avatar': avatar});
     result.addAll({'isFavorite': isFavorite});
+    if(path != null){
+      result.addAll({'path': path});
+    }
   
     return result;
   }
@@ -49,6 +55,7 @@ class Contact {
       lastName: map['last_name'] ?? '',
       avatar: map['avatar'] ?? '',
       isFavorite: map['isFavorite'] ?? false,
+      path: map['path'],
     );
   }
 

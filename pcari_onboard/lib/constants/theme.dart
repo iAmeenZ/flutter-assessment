@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyTheme {
 
@@ -10,8 +11,16 @@ class MyTheme {
     brightness: Brightness.dark,
 
     scaffoldBackgroundColor: Colors.black,
-    primaryColor: Colors.grey.shade800,
-    cardColor: Colors.grey.shade800,
+    primaryColor: primaryColor,
+    cardColor: Colors.grey.shade900,
+
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.grey.shade800,
+      iconTheme: IconThemeData(
+        color: Colors.white
+      ),
+      titleTextStyle: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19)
+    ),
     
     colorScheme: ColorScheme(
       brightness: Brightness.dark,
@@ -48,23 +57,27 @@ class MyTheme {
       //displayColor: Colors.blue, 
     ),
 
-    // inputDecorationTheme: InputDecorationTheme(
-    //   border: InputBorder.none,
-    //   prefixIconColor: Colors.white.withOpacity(0.9),
-    //   hintStyle: TextStyle(color: Colors.grey.shade600),
-    //   suffixIconColor: Colors.white.withOpacity(0.9),
-    // ),
-    // inputDecorationTheme: InputDecorationTheme(
-    //   fillColor: Colors.transparent,
-    //   filled: true,
-    //   floatingLabelStyle: TextStyle(color: Colors.white.withOpacity(0.9), fontWeight: FontWeight.bold),
-    //   focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-    //   errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-    //   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade600, width: 2)),
-    //   focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color1, width: 2)),
-    //   prefixIconColor: Colors.white.withOpacity(0.9),
-    //   suffixIconColor: Colors.white.withOpacity(0.8)
-    // ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.transparent,
+      filled: true,
+      contentPadding: EdgeInsets.fromLTRB(25, 10, 20, 10),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide(
+          width: 1,
+          color: primaryColor,
+          style: BorderStyle.solid,
+        )
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide(
+          width: 1,
+          color: primaryColor,
+          style: BorderStyle.solid,
+        )
+      )
+    ),
     
     textSelectionTheme: TextSelectionThemeData(
       cursorColor: Colors.white.withOpacity(0.9),
@@ -91,18 +104,21 @@ class MyTheme {
     primaryColor: primaryColor,
     primaryColorLight: primaryColorLight,
     primaryColorDark: primaryColorDark,
-    cardColor: Colors.white,
+    cardColor: Colors.grey.shade300,
+
+    appBarTheme: AppBarTheme(
+      backgroundColor: primaryColor,
+      iconTheme: IconThemeData(
+        color: Colors.white
+      ),
+      titleTextStyle: GoogleFonts.inter(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 19)
+    ),
 
     colorScheme: ColorScheme.light().copyWith(primary: primaryColor),
   
     iconTheme: IconThemeData(color: Colors.black.withOpacity(0.9)),
     listTileTheme: ListTileThemeData(iconColor: Colors.black.withOpacity(0.8)),
     shadowColor: Colors.grey.withOpacity(0.5),
-    // textButtonTheme: TextButtonThemeData(
-    //   style: TextButton.styleFrom(
-    //     primary: Colors.black.withOpacity(0.9),
-    //   ),
-    // ),
 
     dividerTheme: DividerThemeData(color: Colors.grey.shade700),
 
@@ -114,17 +130,27 @@ class MyTheme {
       //displayColor: Colors.blue, 
     ),
 
-    // inputDecorationTheme: InputDecorationTheme(
-    //   fillColor: Colors.transparent,
-    //   filled: true,
-    //   floatingLabelStyle: const TextStyle(color: Colors.black87, fontWeight: FontWeight.bold),
-    //   focusedErrorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-    //   errorBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 2)),
-    //   enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey.shade200, width: 2)),
-    //   focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: color2, width: 2)),
-    //   prefixIconColor: Colors.black.withOpacity(0.9),
-    //   suffixIconColor: Colors.black.withOpacity(0.8)
-    // ),
+    inputDecorationTheme: InputDecorationTheme(
+      fillColor: Colors.white,
+      filled: true,
+      contentPadding: EdgeInsets.fromLTRB(25, 10, 20, 10),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide(
+          width: 1,
+          color: primaryColor,
+          style: BorderStyle.solid,
+        )
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: BorderSide(
+          width: 1,
+          color: primaryColor,
+          style: BorderStyle.solid,
+        )
+      )
+    ),
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Colors.black87,
       selectionColor: Colors.red
@@ -132,11 +158,11 @@ class MyTheme {
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: primaryColor,
-      foregroundColor: Colors.black.withOpacity(0.9)
+      foregroundColor: Colors.white
     ),
 
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.transparent,
     )
   );
 

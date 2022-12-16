@@ -66,6 +66,21 @@ class MyController extends GetxController {
     update([GetConst.addFavorite, GetConst.syncContactsBuilder]);
   }
 
+  void editProfile({
+    required Contact contact,
+  }) {
+    try {
+      int index = myUserHive.value.contacts.indexWhere((e) => e.id == contact.id);
+      if (index != -1) {
+        myUserHive.value.contacts[index] = contact;
+        myUserHive.value.save();
+        Get.closeAllSnackbars();
+        Get.snackbar('${contact.firstName} ${contact.lastName}', 'has been updated!', snackPosition: SnackPosition.BOTTOM, icon: Icon(Icons.check_circle, color: Colors.green));
+      }
+    } catch (_) {}
+    update([GetConst.syncContactsBuilder]);
+  }
+
   Future<void> syncContacts() async {
     try {
       ResponseOrError response = await PostmanRequest.getResponse();

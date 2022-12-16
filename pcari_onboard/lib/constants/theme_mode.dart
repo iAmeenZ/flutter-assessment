@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pcari_onboard/model/user.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
 
 ThemeMode currentThemeMode() {
   MyUserHive myUserHive = MyController.to.myUserHive.value;

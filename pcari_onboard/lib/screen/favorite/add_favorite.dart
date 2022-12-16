@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pcari_onboard/constants/constants.dart';
 import 'package:pcari_onboard/constants/custom_icon_icons.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
 
 class AddFavorite extends StatelessWidget {
   const AddFavorite({super.key});
@@ -19,10 +21,10 @@ class AddFavorite extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back_ios, color: Colors.white)
+          icon: Icon(Icons.arrow_back_ios)
         ),
         centerTitle: true,
-        title: Text('Add to Favorite', style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+        title: Text('Add to Favorite'),
       ),
       body: SingleChildScrollView(
         child: GetBuilder<MyController>(
@@ -31,7 +33,10 @@ class AddFavorite extends StatelessWidget {
             return Column(
               children: myController.myUserHive.value.contacts.map((e) => ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                leading: CircleAvatar(
+                leading: e.path != null ? CircleAvatar(
+                  radius: 27,
+                  backgroundImage: FileImage(File(e.path!)),
+                ) : CircleAvatar(
                   radius: 27,
                   backgroundImage: CachedNetworkImageProvider(e.avatar),
                 ),

@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:pcari_onboard/screen/home/home.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
 
 import 'constants/theme.dart';
 import 'constants/theme_mode.dart';

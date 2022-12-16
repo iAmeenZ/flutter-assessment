@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pcari_onboard/constants/theme_mode.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
 
 class DialogThemeSetting extends StatefulWidget {
   const DialogThemeSetting({ Key? key }) : super(key: key);
@@ -67,7 +67,7 @@ class _DialogThemeSettingState extends State<DialogThemeSetting> {
                 if (index == 0) newThemeMode = ThemeMode.light;
                 else if (index == 1) newThemeMode = ThemeMode.dark;
                 MyController.to.changeThemeMode(themeMode: newThemeMode);
-                await Future.delayed(Duration(milliseconds: 300)); // DONNO TEPAKSA AWAIT PULAK
+                await Future.delayed(Duration(milliseconds: 300));
                 if (mounted) setState(() {});
               },
             );

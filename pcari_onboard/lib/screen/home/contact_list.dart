@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,9 +7,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pcari_onboard/constants/custom_icon_icons.dart';
 import 'package:pcari_onboard/model/contact.dart';
+import 'package:pcari_onboard/screen/profile/edit_profile.dart';
 import 'package:pcari_onboard/screen/profile/profile.dart';
-import 'package:pcari_onboard/services/getx/controller.dart';
+import 'package:pcari_onboard/services/controller/controller.dart';
+import 'package:pcari_onboard/services/http/send_email.dart';
 import 'package:pcari_onboard/widget/custom_button.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactList extends StatelessWidget {
   final bool isAll;
@@ -24,7 +29,9 @@ class ContactList extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(50, 50, 50, 20),
             child: Image.asset('assets/image1.png'),
           ),
-          Text('No list of contact here,\nadd contact now', textAlign: TextAlign.center, style: GoogleFonts.inter(fontWeight: FontWeight.bold))
+          if (!isAll)...[
+            Text('No list of contact here,\nadd contact now\n(Add favorite contact at \'+\' button)', textAlign: TextAlign.center, style: GoogleFonts.inter(fontWeight: FontWeight.bold))
+          ]
         ] else...[
           Column(
             children: contacts.map((e) => Slidable(
@@ -36,7 +43,7 @@ class ContactList extends StatelessWidget {
                     foregroundColor: Colors.yellow.shade700,
                     backgroundColor: Get.theme.primaryColorLight,
                     onPressed: (context) {
-                      
+                      Get.to(() => EditProfile(contact: e, callback: (_) {}));
                     }
                   ),
                   Container(
@@ -57,7 +64,7 @@ class ContactList extends StatelessWidget {
                           height: 130,
                           child: Column(
                             children: [
-                              Container(padding: EdgeInsets.fromLTRB(40, 25, 40, 15), child: Text('Are you sure you want to delete this contact?', textAlign: TextAlign.center, style: GoogleFonts.inter(fontWeight: FontWeight.bold))),
+                              Container(padding: EdgeInsets.fromLTRB(40, 25, 40, 15), child: Text('Are you sure you want to delete this contact?', textAlign: TextAlign.center, style: GoogleFonts.inter())),
                               Divider(height: 0, color: Colors.grey),
                               Expanded(
                                 child: Row(
@@ -104,7 +111,10 @@ class ContactList extends StatelessWidget {
               ),
               child: ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                leading: CircleAvatar(
+                leading: e.path != null ? CircleAvatar(
+                  radius: 27,
+                  backgroundImage: FileImage(File(e.path!)),
+                ) : CircleAvatar(
                   radius: 27,
                   backgroundImage: CachedNetworkImageProvider(e.avatar),
                 ),
@@ -121,7 +131,7 @@ class ContactList extends StatelessWidget {
                 trailing: IconButton(
                   icon: Icon(CustomIcons.paper_plane_empty, color: Get.theme.primaryColor),
                   onPressed: () {
-
+                    sendEmail(contact: e);
                   },
                 ),
                 focusColor: Get.theme.primaryColorLight,
